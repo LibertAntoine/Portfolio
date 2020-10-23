@@ -12,12 +12,55 @@
 
 
       <sui-modal v-model="open">
-        <sui-modal-header>Hello</sui-modal-header>
+        <sui-modal-header>Contact</sui-modal-header>
         <i id="closeX" class="large x icon" @click="toggleModal"></i>
         <sui-modal-content image>
-        Content
+          <sui-image
+          wrapped
+          size="medium"
+          :src="image"
+        />
+          <sui-modal-description class="contactContent">
+            <p><span class="bold">Tel :</span> (+33)6 01 21 96 91</p>
+            <p><span class="bold">Email :</span> antoine.libert@outlook.com</p>
+
+
+          <sui-form>
+          <sui-header dividing></sui-header>
+          <sui-form-field>
+            <label>Adresse Mail</label>
+            <sui-form-fields fields="one">
+              <sui-form-field >
+                <input
+                  type="text"
+                  name="shipping[first-name]"
+                  placeholder="First Name"
+                />
+              </sui-form-field>
+            </sui-form-fields>
+          </sui-form-field>
+          <sui-form-field>
+            <label>Object</label>
+            <sui-form-fields fields="two">
+              <sui-form-field>
+                <input
+                  type="text"
+                  name="shipping[first-name]"
+                  placeholder="First Name"
+                />
+              </sui-form-field>
+            </sui-form-fields>
+          </sui-form-field>
+              <sui-form-field>
+                    <label>Content</label>
+                  <textarea rows="4"></textarea>
+              </sui-form-field>
+        </sui-form>
+      </sui-modal-description>
+
         </sui-modal-content >
         <sui-modal-actions class="linksProject">
+          <sui-button type="submit">Submit Order</sui-button>
           <button class="ui orange button" @click="toggleModal">OK</button>
         </sui-modal-actions>
      </sui-modal>
@@ -36,7 +79,8 @@ export default {
   },
   data: function () {
     return {
-      open: false
+      open: false,
+      image : require("@/assets/profil.jpg")
     }
   },
   methods: {
@@ -44,18 +88,48 @@ export default {
       this.open = !this.open;
     }
   }
+  /* icon film*/
 }
 
 </script>
 
 <style scoped>
 
+
+#closeX {
+  position: absolute;
+  top : 23px;
+  right : 20px;
+  opacity : 0.5;
+  transition : opacity 0.7s;
+}
+
+#closeX:hover {
+  opacity : 1;
+}
+
+@media (max-width: 768px) {
+    #closeX {
+    top : 16px;
+    right : 12px;
+  }
+}
+
+.contactContent {
+  width : 100% !important;
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
 .describBloc {
   margin-top : 40px;
   text-align: justify;
   margin-left : 60px;
   width: 40%;
-    color: #e3581f;
+    color:#ff8f60;
   font-family: 'Merriweather', serif;
   font-size : 16px;
 }

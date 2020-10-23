@@ -5,7 +5,7 @@
               <ul class="bullets">
                 <li v-for="bullet in card.bullets" :key="bullet" class="bullet"><span class="bulletContent">{{ bullet }}</span></li>
               </ul>
-              <div class="skillButton"><button class="ui inverted red button skillbuttonitem">{{ $parent.$parent.$parent.langData.skills.skillButton }}</button></div>
+              <div class="skillButton"><a href="#projectTitle"><button class="ui inverted red button skillbuttonitem" @click="changeCategorie">{{ $parent.$parent.$parent.langData.skills.skillButton }}</button></a></div>
         </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
   },
   mounted: function () {
     this.$refs.icon.classList.add(this.card.icon)
+  },
+  methods: {
+    changeCategorie: function () {
+      this.$parent.$parent.$refs.Projects.changeCategorie(this.card.categorie)
+    }
   }
 }
 </script>
@@ -26,7 +31,6 @@ export default {
 <style scoped>
 
 .skillbuttonitem {
-
   border-radius : 30px !important;
 }
 

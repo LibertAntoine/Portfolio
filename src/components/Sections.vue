@@ -2,7 +2,7 @@
   <div class="Sections">
     <Headband />
     <Skills />
-    <Projets />
+    <Projets ref="Projects"/>
     <Footer />
   </div>
 </template>

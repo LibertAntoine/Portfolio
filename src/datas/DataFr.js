@@ -34,7 +34,8 @@ const data = {
           "Bonne maitrise de l’API graphique OpenGL",
           "Solide connaissance de moteur Unity et Enreal Engine.",
           "Mathématiques et physiques appliqués à l'ordinateur."
-        ]
+        ],
+        categorie : "ComputerGraphics"
       },
       { // Digital Art
         icon : "fa-palette",
@@ -44,7 +45,8 @@ const data = {
           "Développement Frontend en Vue.js ou Angular.",
           "Déploiement serveur, Node.js et Apache.",
           "Création graphique en webGL via Three.js"
-        ]
+        ],
+        categorie : "DigitalArt"
       },
       { // Web 
         icon : "fa-code",
@@ -54,7 +56,8 @@ const data = {
           "Création motion design via After Effect.",
           "Connaissance des technologies VR.",
           "Maitrise d’outil de création programmative comme Processing et P5.js."
-        ]
+        ],
+        categorie : "Web"
       },
       { // Audiovisual
         icon : "fa-camera",
@@ -63,7 +66,8 @@ const data = {
           "Création de fiction : story-board, scénario, découpage technique.",
           "Captation image et son",
           "Post-production : montage et étalonnage."
-        ]
+        ],
+        categorie : "Audiovisual"
       }
     ]
   },

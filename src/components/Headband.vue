@@ -76,7 +76,7 @@ p {
   margin-top : 10px;
   font-family: 'Sansita Swashed', cursive;
   font-size: 25px;
-  /*color: #c02525;*/
+  color: #e3581f;
 }
 
 
@@ -154,7 +154,7 @@ p {
 }
 
 #description {
-  color: #e3581f;
+  color: #ff8f60;
   font-family: 'Merriweather', serif;
   font-size : 15px;
 
