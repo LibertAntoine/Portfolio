@@ -74,18 +74,22 @@ export default {
   text-align: justify;
   margin-top : 15px;
   font-size : 16px;
+
 }
 
 .SkillCard {
   position: relative;
   font-family: 'Oxygen', sans-serif;
-  width : 370px;
+  width : 330px;
   height : 480px;
   background-color:  rgba(12,12,12,0.65);;
   box-shadow: 0 4px 10px 0 rgba(0,0,0,1);
   border-radius: 6px;
   color : #e3581f;
-  padding : 20px;
+  padding : 15px;
+  margin-left : 0%;
+  margin-right : 0%;
+  transition : margin-left 1s, margin-right 1s;
 }
 
 .SkillTitle {
@@ -95,5 +99,33 @@ export default {
   font-size : 30px;
   text-align: center;
 }
+
+
+@media (max-width: 1677px) {
+
+.SkillCard {
+  margin-left : -5%;
+  margin-right : -5%;
+}
+
+}
+
+@media (max-width: 1472px) {
+
+.SkillCard {
+  margin-left : -7%;
+  margin-right : -7%;
+}
+
+}
+
+@media (max-width: 1410px) {
+  .SkillCard {
+  margin-bottom: 30px;
+}
+}
+
+
+
 
 </style>

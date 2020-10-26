@@ -1,7 +1,7 @@
 <template>
   <div class="Sections">
     <Headband />
-    <Skills />
+    <Skills ref="Skills"/>
     <Projets ref="Projects"/>
     <Footer />
   </div>
@@ -40,5 +40,6 @@ export default {
     position: absolute;
     top : calc(100% - 170px);
     z-index: 3; 
+    width: 100%;
 }
 </style>

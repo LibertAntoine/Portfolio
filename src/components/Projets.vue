@@ -16,37 +16,46 @@
         <div id="catDescrib"><p>{{ $parent.$parent.langData.metaproject.textCategories[currentCategorie] }}</p></div>
         <Projet v-for="(project, index) in selectProject" :key="project.title" :project="project" :right="index % 2" />
         </div>
-        <div id="moreButtonBloc" v-if="$parent.$parent.langData.projects.length >= currentViewProject">
+        <div id="moreButtonBloc" v-if="categorieProject.length > currentViewProject">
           <button id="moreButton" @click="expendCategorie()">{{ $parent.$parent.langData.metaproject.moreButton }}</button>
         </div>
       
       </div>
+      <ProjectModal ref="ProjectModal" :project="currentModalProject"/>
+      
     </section>
 </template>
 
 <script>
 import Projet from '@/components/Projet.vue'
+import ProjectModal from "@/components/ProjectModal.vue"
 
 
 export default {
   name: 'Projets',
   components: {
-    Projet
+    Projet,
+    ProjectModal
   },
   data: function () {
     return {
       all : true,
       currentCategorie: "All",
+      currentModalProject: this.$parent.$parent.langData.projects[0],
       currentViewProject: 3
     }
   },
   computed: {
+    categorieProject : function () {
+      return this.$parent.$parent.langData.projects.filter(this.verifCategorie)
+    },
     selectProject : function () {
       return this.$parent.$parent.langData.projects.filter(this.verifCategorie).slice(0, this.currentViewProject)
     }
   },
   methods : {
     changeCategorie : function (categorie) {
+      this.currentViewProject = 3
       this.currentCategorie = categorie
     },
     verifCategorie : function (projet) {
@@ -97,6 +106,7 @@ export default {
   box-shadow: 0 4px 10px 0 rgba(0,0,0,1);
   border-radius : 40px;
   margin-bottom : 80px;
+  transition: margin-left 1s, margin-right 1s;
 }
 
 #Catégories {
@@ -108,6 +118,7 @@ export default {
   margin-bottom : 100px;
   display: flex;
   justify-content: space-around;
+  transition : width 1s, margin-left 1s,  margin-right 1s;
 }
 
 
@@ -170,5 +181,81 @@ export default {
   box-shadow: 0px 0px 10px 0 rgba(0,0,0,0.35);
    background-color :  #a93636;
 }
+
+@media (max-width: 1677px) {
+
+.Projets {
+
+  margin-left : 4.5%;
+  margin-right : 4.5%;
+
+}
+
+}
+
+@media (max-width: 1472px) {
+
+.Projets {
+
+  margin-left : 3%;
+  margin-right : 3%;
+
+}
+
+#Catégories {
+
+  width : 70%;
+  margin-left : 15%;
+  margin-right : 15%;
+
+}
+
+}
+
+@media (max-width: 1410px) {
+.Projets {
+  margin-top :-20px;
+  margin-left : 3%;
+  margin-right : 3%;
+
+}
+}
+
+@media (max-width: 1265px) {
+
+  
+  #Catégories {
+
+    width : 80%;
+    margin-left : 10%;
+    margin-right : 10%;
+
+  }
+}
+
+
+@media (max-width: 1090px) {
+
+  
+  #Catégories {
+    flex-wrap: wrap;
+    width : 80%;
+    margin-left : 10%;
+    margin-right : 10%;
+
+  }
+}
+
+@media (max-width: 500px) {
+
+  
+  #catDescrib {
+    display : none;
+
+  }
+}
+
+
+
 
 </style>

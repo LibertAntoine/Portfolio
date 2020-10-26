@@ -16,46 +16,14 @@
                          {{ $parent.$parent.$parent.langData.metaproject.seeCodeLink }}</a></span></p></div>
             </div>
             <img v-if="right && !mobile" ref="imageProject" class="projetIllu" :src="project.img[0]" />
-
-
-        
-    <sui-modal v-model="open">
-        <sui-modal-header>{{ project.title }}</sui-modal-header>
-        <i id="closeX" class="large x icon" @click="toggleNodal"></i>
-          <sui-modal-content class="modalContent">
-        <sui-modal-content image>
-          <div class="fresco">
-            <img class="projetIlluFresco" :src="project.img[1]" />
-            <img class="projetIlluFresco" :src="project.img[0]" />
-            <img class="projetIlluFresco" :src="project.img[2]" />
-          </div>
-          </sui-modal-content>
-          <sui-modal-content>
-          <sui-modal-description>
-            <p ref="textGlobal" class="textGlobal"></p>
-            <h3 class="featuresTitle">{{ $parent.$parent.$parent.langData.metaproject.feature }}</h3>
-            <lu class="features">
-              <li v-for="feature in project.features" :key="feature" class="feature">{{ feature }}</li>
-            </lu>
-          </sui-modal-description>
-          </sui-modal-content>
-        </sui-modal-content >
-        <sui-modal-actions class="linksProject">
-          <button  class="ui orange button" v-if="project.projectLink" positive @click.native="toggle">
-            <a :href="(project.projectLink) ? project.projectLink[0] : null" target="_blank">
-            {{ project.projectLink[1] }}</a>
-          </button>
-          <button class="ui orange button" v-if="project.codeUrl" positive @click.native="toggle"><a :href="(project.codeUrl) ? project.codeUrl : null" target="_blank">
-          {{ $parent.$parent.$parent.langData.metaproject.seeCodeLink }}</a>
-          </button>
-        </sui-modal-actions>
-     </sui-modal>
-
           </div>
         </div>
 </template>
 
 <script>
+
+
+//window.open('https://waytolearnx.com', '_blank');
 export default {
   name: 'Projets',
   props: {
@@ -63,7 +31,11 @@ export default {
     right : {type: Number, default: 0 },
   },
   watch: {
-    project : function () { this.$refs.text.innerHTML = this.project.text; this.$refs.textGlobal.innerHTML = this.project.text }
+     project : function () { 
+       this.$refs.text.innerHTML = this.project.text
+       if (this.$parent.currentModalProject.nameIndex == this.project.nameIndex)
+        this.$parent.currentModalProject = this.project
+    }
   },
   data: function () {
     return {
@@ -73,7 +45,7 @@ export default {
   },
   mounted : function () {
     this.$refs.text.innerHTML = this.project.text
-    this.$refs.textGlobal.innerHTML = this.project.text
+
     window.addEventListener('resize', this.onResize)
     this.onResize();
   },
@@ -82,13 +54,35 @@ export default {
       this.mobile = (window.innerWidth <= 930) ? true : false;
     },
     toggleNodal() {
-      this.open = !this.open;
+      this.$parent.currentModalProject = this.project
+      this.$parent.$refs.ProjectModal.toggle()
     },
+    openProjectLink() {
+       if (this.project.projectLink) {window.open(this.project.projectLink[0], '_blank');
+    }
+    },
+      openProjectCode() {
+        if (this.project.codeUrl) {window.open(this.project.codeUrl, '_blank');
+      }
+    }
   }
 }
 </script>
 
+<style>
+    #projectModal .ui.modal {
+      width : 80% !important;
+      max-width: 1400px;
+    }
+</style>
+
 <style scoped>
+
+
+
+
+
+
 
 
 .Projet {
@@ -116,24 +110,8 @@ a:hover {
 }
 
 
-#closeX {
-  position: absolute;
-  top : 23px;
-  right : 20px;
-  opacity : 0.5;
-  transition : opacity 0.7s;
-}
 
-#closeX:hover {
-  opacity : 1;
-}
 
-@media (max-width: 768px) {
-  #closeX {
-  top : 16px;
-  right : 12px;
-}
-}
 
 .left {
   margin-left : 10%;
@@ -149,10 +127,10 @@ a:hover {
   display: flex;
   margin-top : 50px;
   margin-bottom : 50px;
-  width : 70%;
+  width : 72%;
   height : 300px;
-  background-color :  #b9946e;
-
+  background-color :#b9946e; /* #e6ba8c;*/
+  transition : width 1s;
 }
 
 .projetIllu {
@@ -161,44 +139,7 @@ a:hover {
   object-fit: cover;
 }
 
-.projetIlluFresco {
-  
-  width : 33%;
-  object-fit: cover;
-}
 
-.fresco {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.textGlobal {
-  font-size : 17px;
-  text-align: justify;
-  padding-left: 2%;
-  padding-right: 2%;
-  margin-top: 30px;
-}
-
-.featuresTitle {
-    font-size : 20px;
-  text-align: justify;
-  padding-left: 2%;
-  padding-right: 2%;
-}
-
-.feature {
-  font-size : 17px;
-  text-align: justify;
-  padding-left: 5%;
-  padding-right: 5%;
-}
-
-.modalContent {
-  max-height : calc(90vh - 200px);
-  overflow-y: auto
-}
 
 .projetDescrip {
   padding : 30px;
@@ -259,7 +200,7 @@ a:hover {
 
 
 
-@media (max-width: 1550px) {
+@media (max-width: 1640px) {
   .left {
     margin-left : 5%;
     margin-right : 10%;
@@ -288,16 +229,26 @@ a:hover {
 
   .Projet {
     width : 94%;
+    height : 320px;
   }
 
   .projetType {
   position: relative;
   margin-right : 0px;
   margin-top : -10px;
+  margin-bottom: 10px;
   font-weight: bold;
   color : #090034;
 
   }
+
+
+  .projetButtonBloc {
+
+  margin-bottom : 18px;
+
+
+}
 
 }
 
@@ -317,6 +268,34 @@ a:hover {
   .projetDescrip {
     height : 50%;
   }
+
+}
+
+
+@media (max-width: 480px) {
+
+
+  .Projet {
+    height : 100%;
+  }
+
+
+  .projetIllu{
+    height: 30%;
+    max-height: 200px;
+    
+  }
+
+.projetText {
+  margin-bottom: 30px;
+}
+
+  .projetButtonBloc {
+    font-size: 16px;
+    margin-left: -30px;
+    width : calc(100%)
+}
+
 
 }
 

@@ -11,11 +11,11 @@
       inverted
       vertical
     >
-      <a href="#app"> <sui-menu-item to="" class="menuItem" > <sui-icon name="home" /> Acceuil </sui-menu-item></a>
-      <a href="#cv"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="user" /> Profil </sui-menu-item></a>
-      <a href="#titleForm"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="clone" /> Compétences </sui-menu-item></a>
-      <a href="#projectTitle"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="star" /> Projets </sui-menu-item></a>
-      <sui-menu-item to="/" class="menuItem"> <sui-icon name="envelope" /> Contact </sui-menu-item>
+      <a href="#app"> <sui-menu-item to="" class="menuItem" > <sui-icon name="home" />{{ langData.menu[0] }}</sui-menu-item></a>
+      <a href="#cv"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="user" />{{ langData.menu[1] }}</sui-menu-item></a>
+      <a href="#titleForm"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="clone" />{{ langData.menu[2] }}</sui-menu-item></a>
+      <a href="#projectTitle"> <sui-menu-item to="/" class="menuItem"> <sui-icon name="star" />{{ langData.menu[3] }}</sui-menu-item></a>
+      <sui-menu-item class="menuItem" @click.native="openContact"> <sui-icon name="envelope"/>{{ langData.menu[4] }}</sui-menu-item>
     </sui-menu>
     <sui-sidebar-pusher class="allSegment">
       <sui-segment class="allSegment">
@@ -26,7 +26,7 @@
     <p id="menuButton" v-show="!visible" :class="{hidden:isHidden, visible2:!isHidden}" @click="(e) => {e.stopPropagation(); toogleSidebar()}"><i class="bars icon big"></i></p>
     <button id="langButton" :class="{hidden:isHidden, visible2:!isHidden}" class="ui orange button" @click="toogleLang">{{ this.langData.otherLang }}</button>
     <TitleBloc id="titleBloc"/>
-    <Sections id="sections"/>
+    <Sections id="sections" ref="Sections"/>
   </div>
 </template>
 
@@ -36,6 +36,7 @@ import TitleBloc from '@/components/TitleBloc.vue'
 import Sections from '@/components/Sections.vue'
 import DataFr from "@/datas/DataFr.js"
 import DataEn from "@/datas/DataEn.js"
+import ProjectIndex from "@/datas/ProjectIndex.js"
 
 export default {
   name: 'App',
@@ -59,6 +60,15 @@ export default {
       if(this.visible == true) {
         this.toogleSidebar()
     } })
+
+    if(this.$route.params.title && (ProjectIndex[this.$route.params.title] != undefined))
+    {
+      this.$refs.Sections.$refs.Projects.currentModalProject = this.langData.projects[ProjectIndex[this.$route.params.title]]
+      this.$refs.Sections.$refs.Projects.$refs.ProjectModal.toggle()
+    } else {
+      this.$router.replace('/')
+    }
+
   },
   methods: {
     toogleLang : function () {
@@ -69,9 +79,10 @@ export default {
       }   
     },
     toogleSidebar : function () {
-      console.log(this.visible)
         this.visible = !this.visible;
-    }
+    },
+    openContact : function () {
+      this.$refs.Sections.$refs.Skills.$refs.ContactsModal.open = true    }
   }
 }
 </script>
@@ -80,6 +91,7 @@ export default {
 
 html {
 	scroll-behavior: smooth;
+   width:100%;
 }
 
 .menuItem {
@@ -124,7 +136,7 @@ transition: background-color 0.7s !important;
   left : 2%;
   z-index: 10;
   color: #ff8f60;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, left 1s;
     z-index: 1500;
 }
 
@@ -161,6 +173,7 @@ body{
   background-size: cover;*/
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #090034 31%,#e3581f 120%);
   background-size: cover;
+  width:100%;
 
 
 }
@@ -195,4 +208,26 @@ body{
   color: #2c3e50;
   z-index: 0;
 }
+
+
+@media (max-width: 940px) {
+#menuButton {
+  left : 3.5%;
+}
+}
+
+
+
+
+@media (max-width: 400px) {
+#menuButton {
+  left : 5%;
+}
+
+
+}
+
+
+
+
 </style>

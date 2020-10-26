@@ -8,87 +8,25 @@
       <div id="SkillsBlocs">
         <SkillCard v-for="card in $parent.$parent.langData.skills.cards" :key="card.title" :card="card" />
       </div>
-
-
-
-      <sui-modal v-model="open">
-        <sui-modal-header>Contact</sui-modal-header>
-        <i id="closeX" class="large x icon" @click="toggleModal"></i>
-        <sui-modal-content image>
-          <sui-image
-          wrapped
-          size="medium"
-          :src="image"
-        />
-          <sui-modal-description class="contactContent">
-            <p><span class="bold">Tel :</span> (+33)6 01 21 96 91</p>
-            <p><span class="bold">Email :</span> antoine.libert@outlook.com</p>
-
-
-          <sui-form>
-          <sui-header dividing></sui-header>
-          <sui-form-field>
-            <label>Adresse Mail</label>
-            <sui-form-fields fields="one">
-              <sui-form-field >
-                <input
-                  type="text"
-                  name="shipping[first-name]"
-                  placeholder="First Name"
-                />
-              </sui-form-field>
-            </sui-form-fields>
-          </sui-form-field>
-          <sui-form-field>
-            <label>Object</label>
-            <sui-form-fields fields="two">
-              <sui-form-field>
-                <input
-                  type="text"
-                  name="shipping[first-name]"
-                  placeholder="First Name"
-                />
-              </sui-form-field>
-            </sui-form-fields>
-          </sui-form-field>
-              <sui-form-field>
-                    <label>Content</label>
-                  <textarea rows="4"></textarea>
-              </sui-form-field>
-        </sui-form>
-      </sui-modal-description>
-
-        </sui-modal-content >
-        <sui-modal-actions class="linksProject">
-          <sui-button type="submit">Submit Order</sui-button>
-          <button class="ui orange button" @click="toggleModal">OK</button>
-        </sui-modal-actions>
-     </sui-modal>
-
-
+      <ContactsModal ref="ContactsModal"/>
     </section> 
 </template>
 
 <script>
 import SkillCard from '@/components/SkillCard.vue'
+import ContactsModal from '@/components/ContactsModal.vue'
 
 export default {
   name: 'Skills',
   components : {
-    SkillCard
-  },
-  data: function () {
-    return {
-      open: false,
-      image : require("@/assets/profil.jpg")
-    }
+    SkillCard,
+    ContactsModal
   },
   methods: {
     toggleModal() {
-      this.open = !this.open;
+      this.$refs.ContactsModal.toggle()
     }
   }
-  /* icon film*/
 }
 
 </script>
@@ -96,33 +34,9 @@ export default {
 <style scoped>
 
 
-#closeX {
-  position: absolute;
-  top : 23px;
-  right : 20px;
-  opacity : 0.5;
-  transition : opacity 0.7s;
-}
-
-#closeX:hover {
-  opacity : 1;
-}
-
-@media (max-width: 768px) {
-    #closeX {
-    top : 16px;
-    right : 12px;
-  }
-}
-
-.contactContent {
-  width : 100% !important;
-}
 
 
-.bold {
-  font-weight: bold;
-}
+
 
 .describBloc {
   margin-top : 40px;
@@ -132,6 +46,7 @@ export default {
     color:#ff8f60;
   font-family: 'Merriweather', serif;
   font-size : 16px;
+  transition : width 1s;
 }
 
 #titleForm {
@@ -161,6 +76,7 @@ h2 {
   position: absolute;
   top : 690px;
   right : 27%;
+  transition : right 1s, top 1s;
 }
 
 #contactButton {
@@ -183,4 +99,114 @@ h2 {
   box-shadow: 0px 0px 10px 0 rgba(0,0,0,0.35);
 background-color: #a93636;
 }
+
+
+@media (max-width: 1410px) {
+  #SkillsBlocs {
+      flex-wrap: wrap;
+      padding: 0% 21% 0% 21%;
+      
+  }
+}
+
+
+@media (max-width: 1255px) {
+  #SkillsBlocs {
+      flex-wrap: wrap;
+      padding: 0% 17% 0% 17%;
+
+  }
+}
+
+
+@media (max-width: 1070px) {
+  #SkillsBlocs {
+      flex-wrap: wrap;
+      padding: 0% 14% 0% 14%;
+
+  }
+}
+
+
+
+@media (max-width: 970px) {
+  #SkillsBlocs {
+      flex-direction: column;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0% 0% 0% 0%;
+      transition : none;
+  }
+}
+
+
+
+
+
+
+@media (max-width: 1270px) {
+    #contact {
+      top : 720px;
+      right : 13%;
+  }
+
+  .describBloc {
+    width: 60%;
+
+  }
+}
+
+@media (max-width: 1000px) {
+    #contact {
+      top : 750px;
+      right : 10%;
+  }
+
+  .describBloc {
+    width: 55%;
+
+  }
+}
+
+
+@media (max-width: 900px) {
+    #contact {
+      top : 930px;
+
+  }
+
+  .describBloc {
+    width: 80%;
+    margin-bottom: 100px;
+
+  }
+}
+
+
+@media (max-width: 670px) {
+    #contact {
+      position: relative;
+      transition : none;
+      top : 0px;
+      text-align: right;
+      width : 100%;
+
+  }
+
+
+
+  .describBloc {
+    width: 90%;
+    margin-left : 20px;
+    margin-bottom: 60px;
+  }
+
+  #titleForm {
+    margin-left : 20px;
+
+  }
+}
+
+
+
 </style>
